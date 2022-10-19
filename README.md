@@ -52,7 +52,8 @@ Those parms will show up in the QUERY_STRING environment variable.
 
 Unfortunately, the standard apache policy give wide-ranging access to
 thing in /etc and other places.  I found that /var/run/sshd.pid is not
-allowed, though.  You can add an access to that to test-cgi.
+allowed, though.  I have added a program /usr/bin/supsec that accessed
+the file /usr/share/super-secret/data that is not allowed.
 
 If you run:
   setenforce 1
