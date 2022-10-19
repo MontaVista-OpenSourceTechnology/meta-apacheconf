@@ -20,6 +20,7 @@ IMAGE_INSTALL = "\
 	procps \
 	less \
 	super-secret \
+	webif \
 "
 
 inherit selinux-image

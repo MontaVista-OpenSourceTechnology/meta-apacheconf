@@ -31,16 +31,16 @@ the lines that have d_xconsole in them.  This will eliminate some
 denials; syslog-ng will try to log to the X server but the X server is
 not configured in the policy.
 
-Edit /etc/apache2/httpd.conf and uncomment the line with cgid_module on it.
+/etc/apache2/httpd.conf will have cgid_module uncommented by the webif
+package.
 
-By default /etc/selinux/config has:
+By default /etc/selinux/config shoule have:
   SELINUX=permissive
 
 Scripts are in /usr/libexec/apache2/modules/cgi-bin.  In that
-directory, edit test-cgi, make the first line:
-#!/bin/bash
-
-Then make test-cgi executable.
+directory, the script webif is what we will be using.  The
+recipes-apps/webif recipe will build this, you can modify that to do
+different things if you like.
 
 Now reboot.  You will be running with selinux enabled but in
 permissive mode, so if an invalid access happens it will be allowed
@@ -49,14 +49,21 @@ browser to localhost:8080 to talk to apache in qemu, and you can do:
 ssh -p 5556 root@localhost to log in to the VM.
 
 You can pass parameters to the test-cgi script by doing something like:
-  http://localhost:8080/cgi-bin/test-cgi?parm1=a&parm2=b
+  http://localhost:8080/cgi-bin/webif?parm1=a&parm2=b
 
-Those parms will show up in the QUERY_STRING environment variable.
+Those parms will show up in the QUERY_STRING environment variable.  In
+the future, you could use those to pass things in to do differnt
+things.
 
 Unfortunately, the standard apache policy give wide-ranging access to
 thing in /etc and other places.  I found that /var/run/sshd.pid is not
 allowed, though.  I have added a program /usr/bin/supsec that accessed
 the file /usr/share/super-secret/data that is not allowed.
+
+By default webif will try to run /usr/bin/supsec and access
+/usr/share/super-secret-data.  You will see "Super Secret Data" in the
+output of the web page if enforcement is off, and errors if
+enforcement is on.
 
 If you run:
   setenforce 1
