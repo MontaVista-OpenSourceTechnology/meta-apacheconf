@@ -2,10 +2,6 @@ DESCRIPTION = "Minimal image with SELinux support (no python)"
 
 IMAGE_FEATURES += "splash ssh-server-openssh"
 
-DISTRO_FEATURES:append = " acl xattr pam selinux"
-
-PREFERRED_PROVIDER_virtual/refpolicy ?= "refpolicy-apacheconf"
-
 LICENSE = "MIT"
 
 IMAGE_INSTALL = "\
@@ -23,6 +19,7 @@ IMAGE_INSTALL = "\
 	selinux-python-sepolicy \
 	procps \
 	less \
+	super-secret \
 "
 
 inherit selinux-image

@@ -7,6 +7,10 @@ In project/conf/bblayers, add:
   ${TOPDIR}/../layers/meta-apacheconf \
 to the BBLAYERS variable.
 
+Add the following to project/conf/local.conf:
+  DISTRO_FEATURES:append = " acl xattr pam selinux"
+  PREFERRED_PROVIDER_virtual/refpolicy ?= "refpolicy-apacheconf"
+
 In the project directory, run:
   bitbake core-image-selinux-apacheconf
 
