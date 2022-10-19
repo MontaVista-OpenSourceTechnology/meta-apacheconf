@@ -34,7 +34,7 @@ not configured in the policy.
 /etc/apache2/httpd.conf will have cgid_module uncommented by the webif
 package.
 
-By default /etc/selinux/config shoule have:
+By default /etc/selinux/config should have:
   SELINUX=permissive
 
 Scripts are in /usr/libexec/apache2/modules/cgi-bin.  In that
@@ -42,11 +42,11 @@ directory, the script webif is what we will be using.  The
 recipes-apps/webif recipe will build this, you can modify that to do
 different things if you like.
 
-Now reboot.  You will be running with selinux enabled but in
-permissive mode, so if an invalid access happens it will be allowed
-but an audit log will print.  You should be able to connect your
-browser to localhost:8080 to talk to apache in qemu, and you can do:
-ssh -p 5556 root@localhost to log in to the VM.
+You will be running with selinux enabled but in permissive mode, so if
+an invalid access happens it will be allowed but an audit log will
+print.  You should be able to connect your browser to localhost:8080
+to talk to apache in qemu, and you can do: ssh -p 5556 root@localhost
+to log in to the VM.
 
 You can pass parameters to the test-cgi script by doing something like:
   http://localhost:8080/cgi-bin/webif?parm1=a&parm2=b
