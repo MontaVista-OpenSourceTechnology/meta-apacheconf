@@ -16,9 +16,11 @@ In the project directory, run:
   bitbake core-image-selinux-apacheconf
 
 To run the VM, do:
-qemu-system-x86_64 --machine q35 -m 1G -enable-kvm -drive file=tmp/deploy/images/x86-generic-64/core-image-selinux-apacheconf-x86-generic-64.ext4,format=raw -nographic -net nic,model=e1000,macaddr=52:54:00:12:34:61 -net user,hostfwd=tcp::5556-10.0.2.15:22,hostfwd=tcp::8080-10.0.2.15:80 -kernel tmp/deploy/images/x86-generic-64/bzImage-x86-generic-64.bin -append "root=/dev/sda console=ttyS0,115200 selinux=1 enforcing=0"
+
+  qemu-system-x86_64 --machine q35 -m 1G -enable-kvm -drive file=tmp/deploy/images/x86-generic-64/core-image-selinux-apacheconf-x86-generic-64.ext4,format=raw -nographic -net nic,model=e1000,macaddr=52:54:00:12:34:61 -net user,hostfwd=tcp::5556-10.0.2.15:22,hostfwd=tcp::8080-10.0.2.15:80 -kernel tmp/deploy/images/x86-generic-64/bzImage-x86-generic-64.bin -append "root=/dev/sda console=ttyS0,115200 selinux=1 enforcing=0"
 
 /etc/network/interfaces should have:
+
   auto eth0
   iface eth0 inet dhcp
 
@@ -35,6 +37,7 @@ not configured in the policy.
 package.
 
 By default /etc/selinux/config should have:
+
   SELINUX=permissive
 
 Scripts are in /usr/libexec/apache2/modules/cgi-bin.  In that
