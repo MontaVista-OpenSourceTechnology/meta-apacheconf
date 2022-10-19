@@ -23,12 +23,13 @@ qemu-system-x86_64 --machine q35 -m 1G -enable-kvm -drive file=tmp/deploy/images
   iface eth0 inet dhcp
 
 in it, per the recipe, but you should make sure.  It may need to be
-adjusted if your network device isn't eth0.
+adjusted if your network device isn't eth0, or that can be fixed in
+the apacheconf layer.
 
-Edit /etc/syslog-ng/syslog-ng.conf and comment out the lines that have
-d_xconsole in them.  You will need to fix the bracing on the "log"
-line.  This will eliminate some denials; syslog-ng will try to log to
-the X server but the X server is not configured in the policy.
+/etc/syslog-ng/syslog-ng.conf is fixed in this layer to comment out
+the lines that have d_xconsole in them.  This will eliminate some
+denials; syslog-ng will try to log to the X server but the X server is
+not configured in the policy.
 
 Edit /etc/apache2/httpd.conf and uncomment the line with cgid_module on it.
 
