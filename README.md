@@ -10,6 +10,7 @@ to the BBLAYERS variable.
 Add the following to project/conf/local.conf:
   DISTRO_FEATURES:append = " acl xattr pam selinux"
   PREFERRED_PROVIDER_virtual/refpolicy ?= "refpolicy-apacheconf"
+  DEFAULT_ENFORCING="permissive"
 
 In the project directory, run:
   bitbake core-image-selinux-apacheconf
@@ -17,11 +18,12 @@ In the project directory, run:
 To run the VM, do:
 qemu-system-x86_64 --machine q35 -m 1G -enable-kvm -drive file=tmp/deploy/images/x86-generic-64/core-image-selinux-apacheconf-x86-generic-64.ext4,format=raw -nographic -net nic,model=e1000,macaddr=52:54:00:12:34:61 -net user,hostfwd=tcp::5556-10.0.2.15:22,hostfwd=tcp::8080-10.0.2.15:80 -kernel tmp/deploy/images/x86-generic-64/bzImage-x86-generic-64.bin -append "root=/dev/sda console=ttyS0,115200 selinux=1 enforcing=0"
 
-Log in as root.  Edit /etc/network/interfaces and add:
+/etc/network/interfaces should have:
+  auto eth0
   iface eth0 inet dhcp
 
-to the end and add eth0 to the "auto" line.  Otherwise you won't have
-a network interface.
+in it, per the recipe, but you should make sure.  It may need to be
+adjusted if your network device isn't eth0.
 
 Edit /etc/syslog-ng/syslog-ng.conf and comment out the lines that have
 d_xconsole in them.  You will need to fix the bracing on the "log"
@@ -30,7 +32,7 @@ the X server but the X server is not configured in the policy.
 
 Edit /etc/apache2/httpd.conf and uncomment the line with cgid_module on it.
 
-Edit /etc/selinux/config and set:
+By default /etc/selinux/config has:
   SELINUX=permissive
 
 Scripts are in /usr/libexec/apache2/modules/cgi-bin.  In that
